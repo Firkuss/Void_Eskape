@@ -31,7 +31,7 @@ public class SetApparition : MonoBehaviour
         if (spawnSet.tag == "Plane2")
         {
             groundSet.transform.position = groundSet.transform.position - new Vector3(0, 10, 0);
-            speedM.moveSpeed += 0.000075f;
+            speedM.moveSpeedP2 += 0.000095f;
         }
         else 
         {

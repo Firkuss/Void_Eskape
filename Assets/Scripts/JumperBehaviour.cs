@@ -1,19 +1,16 @@
 using UnityEngine;
 
-public class SpeedManager : MonoBehaviour
+public class JumperBehaviour : MonoBehaviour
 {
-    public float moveSpeed;
-    public float moveSpeedP2;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
-        moveSpeed = 0.04f;
-        moveSpeedP2 = 0.02f;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+        
     }
 }

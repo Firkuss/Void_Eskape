@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 520706586}
   m_Layer: 0
   m_Name: SetSpawner_Plane2
-  m_TagString: Untagged
+  m_TagString: Plane2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,6 +442,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  endPos: {x: 3, y: 2}
 --- !u!50 &547991483
 Rigidbody2D:
   serializedVersion: 5
@@ -694,6 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedManager
   moveSpeed: 0
+  moveSpeedP2: 0
 --- !u!4 &996141752
 Transform:
   m_ObjectHideFlags: 0

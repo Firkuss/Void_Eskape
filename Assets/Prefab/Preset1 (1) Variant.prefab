@@ -90,6 +90,14 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1451380047444998414, guid: b301cec213616da4794023febf120aea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.08657139
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451380047444998414, guid: b301cec213616da4794023febf120aea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.519
+      objectReference: {fileID: 0}
     - target: {fileID: 1500655653168323804, guid: b301cec213616da4794023febf120aea, type: 3}
       propertyPath: m_Color.b
       value: 0.32850716
@@ -124,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3160973166877022025, guid: b301cec213616da4794023febf120aea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.29
+      value: -10.29
       objectReference: {fileID: 0}
     - target: {fileID: 3160973166877022025, guid: b301cec213616da4794023febf120aea, type: 3}
       propertyPath: m_LocalPosition.z

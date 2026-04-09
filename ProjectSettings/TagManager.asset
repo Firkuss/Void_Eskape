@@ -6,6 +6,8 @@ TagManager:
   tags:
   - obstacle
   - Plane2
+  - Plane1
+  - Jumper
   layers:
   - Default
   - TransparentFX

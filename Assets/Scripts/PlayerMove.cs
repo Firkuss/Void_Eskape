@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,8 +24,10 @@ public class PlayerMove : MonoBehaviour
     [Tooltip("Layers considered as ground.")]
     public LayerMask groundLayer;
 
+    public Vector2 endPos = new Vector2(3, 2);
 
     private Rigidbody2D rb;
+    private Collider2D coll;
     private bool isGrounded;
     private float moveInput;
     
@@ -32,7 +35,8 @@ public class PlayerMove : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.freezeRotation = true; // Prevent unwanted rotation
+        coll = GetComponent<Collider2D>();
+        rb.freezeRotation = true;
     }
 
     void Update()
@@ -62,11 +66,42 @@ public class PlayerMove : MonoBehaviour
         {
             isDead();
         }
+
+        if (collision.gameObject.tag == "Jumper")
+        {
+            print("I jump");
+            coll.enabled = false;
+            Wait();
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x + 2, 4);
+            transform.localScale = new Vector2(0.7f, 0.7f); 
+            PlaneChanging();
+        }
     }
 
     void isDead() 
     {
         Destroy(gameObject);
+    }
+
+    void PlaneChanging()
+    {
+        GameObject[] AllPlane2 = GameObject.FindGameObjectsWithTag("Plane2");
+        GameObject[] AllPlane1 = GameObject.FindGameObjectsWithTag("Plane1");
+        foreach (GameObject P2 in AllPlane2)
+        {
+            P2.GetComponent<Collider2D>().isTrigger = false;
+        }
+        foreach (GameObject P1 in AllPlane1)
+        {
+            P1.GetComponent<Collider2D>().isTrigger = true;
+        }
+            
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        coll.enabled = true;
     }
 
     // Draw ground check radius in Scene view for debugging

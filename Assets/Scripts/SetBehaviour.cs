@@ -20,6 +20,16 @@ public class SetBehaviour : MonoBehaviour
     void Update()
     {
         var addSpeed = new Vector3(speedM.moveSpeed, 0f, 0f);
-        transform.position = transform.position - addSpeed;
+        var addSpeedP2 = new Vector3(speedM.moveSpeedP2, 0f, 0f);
+
+        if (gameObject.tag == "Plane2")
+        {
+            transform.position = transform.position - addSpeedP2;
+        }
+        else {
+            transform.position = transform.position - addSpeed;
+        }
+           
     }
 }
+
