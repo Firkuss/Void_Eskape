@@ -120,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1698135916367567186, guid: b301cec213616da4794023febf120aea, type: 3}
       propertyPath: m_TagString
-      value: Plane2
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3160973166877022025, guid: b301cec213616da4794023febf120aea, type: 3}
       propertyPath: m_LocalScale.y

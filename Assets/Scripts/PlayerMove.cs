@@ -25,11 +25,13 @@ public class PlayerMove : MonoBehaviour
     public LayerMask groundLayer;
 
     public Vector2 endPos = new Vector2(3, 2);
+    public GameObject parentPlane;
 
     private Rigidbody2D rb;
     private Collider2D coll;
     private bool isGrounded;
     private float moveInput;
+    private bool isPlane1;
     
 
     void Awake()
@@ -37,10 +39,13 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
         rb.freezeRotation = true;
+        isPlane1 = true;
     }
 
     void Update()
     {
+
+
         // Get horizontal input (-1, 0, 1)
         moveInput = Input.GetAxisRaw("Horizontal");
 
@@ -51,6 +56,16 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        }
+
+        if (isPlane1 == true)
+        {
+            PlaneChangingFW();
+        }
+
+        if (isPlane1 == false)
+        {
+            PlaneChangingBack();
         }
     }
 
@@ -67,14 +82,24 @@ public class PlayerMove : MonoBehaviour
             isDead();
         }
 
-        if (collision.gameObject.tag == "Jumper")
+        if (collision.gameObject.tag == "Jumper" && collision.gameObject.transform.parent.gameObject.tag == "Plane1")
         {
-            print("I jump");
+            print("I jump Back");
             coll.enabled = false;
             Wait();
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x + 2, 4);
-            transform.localScale = new Vector2(0.7f, 0.7f); 
-            PlaneChanging();
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x + 2, 0);
+            transform.localScale = new Vector2(0.7f, 0.7f);
+            isPlane1 = false;
+        }
+
+        if (collision.gameObject.tag == "Jumper" && collision.gameObject.transform.parent.gameObject.tag == "Plane2")
+        {
+            print("I jump FW");
+            coll.enabled = false;
+            Wait();
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x + 2, 0);
+            transform.localScale = new Vector2(1.3f, 1.3f);
+            isPlane1 = true;
         }
     }
 
@@ -83,24 +108,41 @@ public class PlayerMove : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void PlaneChanging()
+    void PlaneChangingBack()
     {
-        GameObject[] AllPlane2 = GameObject.FindGameObjectsWithTag("Plane2");
-        GameObject[] AllPlane1 = GameObject.FindGameObjectsWithTag("Plane1");
-        foreach (GameObject P2 in AllPlane2)
+        GameObject AllPlane2 = GameObject.Find("Plane2Manager");
+        GameObject AllPlane1 = GameObject.Find("Plane1Manager");
+
+        foreach (Transform P2 in AllPlane2.transform)
         {
             P2.GetComponent<Collider2D>().isTrigger = false;
         }
-        foreach (GameObject P1 in AllPlane1)
+        foreach (Transform P1 in AllPlane1.transform)
         {
             P1.GetComponent<Collider2D>().isTrigger = true;
         }
             
     }
 
+    void PlaneChangingFW()
+    {
+        GameObject AllPlane2 = GameObject.Find("Plane2Manager");
+        GameObject AllPlane1 = GameObject.Find("Plane1Manager");
+
+        foreach (Transform P2 in AllPlane2.transform)
+        {
+            P2.GetComponent<Collider2D>().isTrigger = true;
+        }
+        foreach (Transform P1 in AllPlane1.transform)
+        {
+            P1.GetComponent<Collider2D>().isTrigger = false;
+        }
+
+    }
+
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         coll.enabled = true;
     }
 

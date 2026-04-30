@@ -7,7 +7,7 @@ public class SpeedManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        moveSpeed = 0.04f;
+        moveSpeed = 0.03f;
         moveSpeedP2 = 0.02f;
     }
 
