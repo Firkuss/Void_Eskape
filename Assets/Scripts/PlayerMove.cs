@@ -6,26 +6,20 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [Tooltip("Horizontal movement speed.")]
     [Range(1f, 20f)]
     public float moveSpeed = 8f;
-
-    [Tooltip("Jump force applied when jumping.")]
     [Range(1f, 20f)]
     public float jumpForce = 12f;
 
     [Header("Ground Check Settings")]
-    [Tooltip("Transform used to check if the player is on the ground.")]
     public Transform groundCheck;
-
-    [Tooltip("Radius of the ground check circle.")]
     public float groundCheckRadius = 0.2f;
-
-    [Tooltip("Layers considered as ground.")]
     public LayerMask groundLayer;
 
     public Vector2 endPos = new Vector2(3, 2);
     public GameObject parentPlane;
+
+    public ShopManager shopManager;
 
     private Rigidbody2D rb;
     private Collider2D coll;
@@ -82,7 +76,7 @@ public class PlayerMove : MonoBehaviour
             isDead();
         }
 
-        if (collision.gameObject.tag == "Jumper" && collision.gameObject.transform.parent.gameObject.tag == "Plane1")
+        if (collision.gameObject.tag == "Jumper" && collision.gameObject.transform.parent.gameObject.tag == "Plane1" && isPlane1 == true)
         {
             print("I jump Back");
             coll.enabled = false;
@@ -92,7 +86,7 @@ public class PlayerMove : MonoBehaviour
             isPlane1 = false;
         }
 
-        if (collision.gameObject.tag == "Jumper" && collision.gameObject.transform.parent.gameObject.tag == "Plane2")
+        if (collision.gameObject.tag == "Jumper" && collision.gameObject.transform.parent.gameObject.tag == "Plane2" && isPlane1 == false)
         {
             print("I jump FW");
             coll.enabled = false;
@@ -101,11 +95,23 @@ public class PlayerMove : MonoBehaviour
             transform.localScale = new Vector2(1.3f, 1.3f);
             isPlane1 = true;
         }
+
+        if (collision.gameObject.tag == "Coin" && collision.gameObject.transform.parent.gameObject.tag == "Plane1" && isPlane1 == true)
+        {
+            shopManager.playerCurrency += 1;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Coin" && collision.gameObject.transform.parent.gameObject.tag == "Plane2" && isPlane1 == false)
+        {
+            shopManager.playerCurrency += 1;
+            Destroy(collision.gameObject);
+        }
     }
 
     void isDead() 
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     void PlaneChangingBack()
@@ -116,10 +122,18 @@ public class PlayerMove : MonoBehaviour
         foreach (Transform P2 in AllPlane2.transform)
         {
             P2.GetComponent<Collider2D>().isTrigger = false;
+            foreach (Transform gchildP2 in P2.transform)
+            {
+                gchildP2.GetComponent<Collider2D>().isTrigger = false;
+            }
         }
         foreach (Transform P1 in AllPlane1.transform)
         {
             P1.GetComponent<Collider2D>().isTrigger = true;
+            foreach (Transform gchildP1 in P1.transform)
+            {
+                gchildP1.GetComponent<Collider2D>().isTrigger = true;
+            }
         }
             
     }
@@ -132,10 +146,18 @@ public class PlayerMove : MonoBehaviour
         foreach (Transform P2 in AllPlane2.transform)
         {
             P2.GetComponent<Collider2D>().isTrigger = true;
+            foreach (Transform gchildP2 in P2.transform)
+            {
+                gchildP2.GetComponent<Collider2D>().isTrigger = true;
+            }
         }
         foreach (Transform P1 in AllPlane1.transform)
         {
             P1.GetComponent<Collider2D>().isTrigger = false;
+            foreach (Transform gchildP1 in P1.transform)
+            {
+                gchildP1.GetComponent<Collider2D>().isTrigger = false;
+            }
         }
 
     }

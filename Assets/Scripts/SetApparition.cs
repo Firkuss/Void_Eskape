@@ -1,10 +1,12 @@
 using Unity.Multiplayer.Center.Common;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SetApparition : MonoBehaviour
 {
     public GameObject spawnSet;
     public GameObject groundSet;
+    public List<GameObject> presetlist;
     public GameObject SpeedManager;
     public Transform parentPlane;
     
