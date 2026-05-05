@@ -5,16 +5,23 @@ using System.Collections.Generic;
 public class SetApparition : MonoBehaviour
 {
     public GameObject spawnSet;
-    public GameObject groundSet;
-    public List<GameObject> presetlist;
+    public List<GameObject> presetlvl1;
+    public List<GameObject> presetlvl2;
+    public List<GameObject> presetlvl3;
     public GameObject SpeedManager;
     public Transform parentPlane;
     
     private SpeedManager speedM;
     private GameObject presetChild;
+    private int Lvl1Proba = 50;
+    private int Lvl2Proba = 35;
+    private int LvlNextProba = 70;
+    private bool SpawnPhase;
+    private bool canSpawn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        SpawnPhase = false;
         speedM = FindFirstObjectByType<SpeedManager>();
         ChildInstantiate();
 
@@ -50,8 +57,53 @@ public class SetApparition : MonoBehaviour
 
     public void ChildInstantiate()
     {
-        presetChild = Instantiate(groundSet, parentPlane);
-        presetChild.name = "ChildPreset";
+        canSpawn = true;
+        int randomindexLvl1 = Random.Range(0, presetlvl1.Count);
+        int randomindexLvl2 = Random.Range(0, presetlvl2.Count);
+        int randomindexLvl3 = Random.Range(0, presetlvl3.Count);
+
+        int randomValue = Random.Range(0, 100);
+
+        if (randomValue >= Lvl1Proba && SpawnPhase == false && canSpawn == true)
+        {
+            presetChild = Instantiate(presetlvl1[randomindexLvl1], parentPlane);
+            presetChild.name = "ChildPresetLvl1";
+            SpawnPhase = false;
+            canSpawn = false;
+        }
+
+        if (randomValue < Lvl2Proba && SpawnPhase == false && canSpawn == true)
+        {
+            presetChild = Instantiate(presetlvl2[randomindexLvl2], parentPlane);
+            presetChild.name = "ChildPresetLvl2";
+            SpawnPhase = true;
+            canSpawn = false;
+        }
+
+        if (randomValue >= Lvl2Proba && randomValue < Lvl1Proba && SpawnPhase == false && canSpawn == true)
+        {
+            presetChild = Instantiate(presetlvl3[randomindexLvl3], parentPlane);
+            presetChild.name = "ChildPresetLvl3";
+            SpawnPhase = true;
+            canSpawn = false;
+        }
+
+        if (randomValue < LvlNextProba && SpawnPhase == true && canSpawn == true)
+        {
+            presetChild = Instantiate(presetlvl1[randomindexLvl1], parentPlane);
+            presetChild.name = "ChildPresetLvl1";
+            SpawnPhase = false;
+            canSpawn = false;
+        }
+
+        if (randomValue >= LvlNextProba && SpawnPhase == true && canSpawn == true)
+        {
+            presetChild = Instantiate(presetlvl2[randomindexLvl2], parentPlane);
+            presetChild.name = "ChildPresetLvl2";
+            SpawnPhase = true;
+            canSpawn = false;
+        }
+
     }
 
     // Update is called once per frame

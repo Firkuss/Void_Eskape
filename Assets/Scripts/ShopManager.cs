@@ -21,8 +21,8 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShop()
     {
+        Time.timeScale = 0.1f;
         shopPanel.SetActive(true);
-        Time.timeScale = 2f;
         UpdateCurrencyUI();
     }
 

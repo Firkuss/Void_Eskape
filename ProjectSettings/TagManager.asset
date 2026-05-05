@@ -9,6 +9,7 @@ TagManager:
   - Plane1
   - Jumper
   - Coin
+  - Lvl1
   layers:
   - Default
   - TransparentFX

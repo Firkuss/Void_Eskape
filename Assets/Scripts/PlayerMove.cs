@@ -112,6 +112,7 @@ public class PlayerMove : MonoBehaviour
     void isDead() 
     {
         gameObject.SetActive(false);
+        shopManager.OpenShop();
     }
 
     void PlaneChangingBack()
