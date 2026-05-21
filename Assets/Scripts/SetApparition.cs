@@ -46,11 +46,11 @@ public class SetApparition : MonoBehaviour
         if (parentPlane.tag == "Plane2")
         {
             presetChild.transform.position = presetChild.transform.position - new Vector3(0, 10, 0);
-            speedM.moveSpeedP2 += 0.000095f;
+            speedM.moveSpeedP2 += 0.00000090f;
         }
         else 
         {
-            speedM.moveSpeed += 0.0001f;
+            speedM.moveSpeed += 0.000001f;
         }
 
     }
