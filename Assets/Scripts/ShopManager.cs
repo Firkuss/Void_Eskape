@@ -48,6 +48,6 @@ public class ShopManager : MonoBehaviour
 
     void UpdateCurrencyUI()
     {
-        currencyText.text = "Plasma: " + playerCurrency;
+        currencyText.text = ":" + playerCurrency;
     }
 }

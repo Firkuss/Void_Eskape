@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
 
     public Vector2 endPos = new Vector2(3, 2);
     public GameObject parentPlane;
-
+    public Animator P_Anim;
     public ShopManager shopManager;
 
     private Rigidbody2D rb;
@@ -32,6 +32,7 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();
+        P_Anim = GetComponent<Animator>();
         rb.freezeRotation = true;
         isPlane1 = true;
     }
@@ -50,7 +51,9 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            P_Anim.SetBool("IsJumping", true);
         }
+        else P_Anim.SetBool("IsJumping", false);
 
         if (isPlane1 == true)
         {
