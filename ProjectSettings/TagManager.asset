@@ -10,6 +10,7 @@ TagManager:
   - Jumper
   - Coin
   - Lvl1
+  - Clickable
   layers:
   - Default
   - TransparentFX

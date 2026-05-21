@@ -6,10 +6,20 @@ public class ShopManager : MonoBehaviour
 {
     public GameObject shopPanel;
     public TMP_Text currencyText;
-    public int playerCurrency = 0;
+    public int playerCurrency;
+    public static ShopManager instance;
 
-    void Start()
+    void Awake()
     {
+        if(instance != null)
+        {
+            Debug.LogError("Plus d'une instance dans le jeu");
+            return;
+        }
+
+        DontDestroyOnLoad(transform);
+
+        instance = this;
         shopPanel.SetActive(false);
         UpdateCurrencyUI();
     }
